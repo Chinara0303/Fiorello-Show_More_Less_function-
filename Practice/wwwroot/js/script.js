@@ -9,6 +9,8 @@ $(document).ready(function () {
             success: function (res) {
                 $(".parent-products").append(res);
 
+                skipCount = $(".parent-products").children().length;
+
                 if (skipCount >= dataCount) {
                     $(".show-more").addClass("d-none");
                     $(".show-less").removeClass("d-none");
@@ -17,6 +19,22 @@ $(document).ready(function () {
         })
     })
 
+    $(document).on("click", ".show-less", function () {
+        let skipCount = 0;
+
+        $.ajax({
+            url: `shop/loadmore?skip=${skipCount}`,
+            type: "Get",
+            success: function (res) {
+                $(".parent-products").html("")
+                $(".parent-products").append(res);
+
+
+                $(".show-more").removeClass("d-none");
+                $(".show-less").addClass("d-none");
+            }
+        })
+    })
 
 
 

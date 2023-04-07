@@ -1,11 +1,12 @@
-﻿@model HomeVM
-@foreach (var product in Model.Products)
+﻿@model IEnumerable<Product>
+
+@foreach (var product in Model)
 {
     <div class="col-sm-6 col-md-4 col-lg-3 mt-3">
         <div class="product-item product-item-small text-center">
             <div class="img">
                 <a href="">
-                    <img src="img/@product.Images.FirstOrDefault(p=>p.IsMain)?.Image" class="img-fluid" alt="">
+                    <img src="~/img/@product.Images.FirstOrDefault()?.Image" class="img-fluid" alt="">
                 </a>
             </div>
             <div class="overlay d-flex flex-column justify-content-center">

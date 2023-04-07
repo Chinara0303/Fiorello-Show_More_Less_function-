@@ -28,25 +28,22 @@ namespace Practice.Controllers
 
             IEnumerable<Category> categories = await _context.Categories
                 .Where(p => !p.SoftDelete)
-                .Include(p => p.Products)
                 .ToListAsync();
 
-            HomeVM model = new()
-            {
-                Products = products,
-                Categories = categories
-            };
-            return View(model);
+            ViewBag.Categories = categories;
+
+            return View(products);
         }
         public async Task<IActionResult> LoadMore(int skip)
         {
             IEnumerable<Product> products = await _context.Products
-                .Where(p =>!p.SoftDelete)
-                .Skip(skip)
-                .Take(4)
-                .ToListAsync();
+              .Include(p => p.Images)
+              .Where(p => !p.SoftDelete)
+              .Skip(skip)
+              .Take(4)
+              .ToListAsync();
 
-            return PartialView("_ProductsPartial",products);
+            return PartialView("_ProductsPartial", products);
         }
     }
 }

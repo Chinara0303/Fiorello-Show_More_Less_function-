@@ -1,4 +1,4 @@
-﻿@model HomeVM
+﻿@model IEnumerable<Product>
 @{
     ViewData["Title"] = "Shop";
 }
@@ -15,7 +15,7 @@
 
     <section id="shop-list">
         <div class="container">
-            <div class="row py-5 parent-products" data-count="@ViewBag.Count">
+            <div class="row py-5 parent-products" data-count="@ViewBag.Count" >
                <partial name="_ProductsPartial"/>
             </div>
             <div class="d-flex justify-content-center">
@@ -30,7 +30,7 @@
     <section id="products">
         <div class="container">
             <div class="row py-5">
-                @foreach (var category in Model.Categories)
+                @foreach (var category in ViewBag.Categories)
                 {
                     <div class="col-sm-6 col-md-4 col-lg-2 mt-3">
                         <div class="product-item product-item-small text-center" data-id="popular">
@@ -43,7 +43,7 @@
                                 <h6>@category.Name</h6>
                             </div>
                             <div class="price">
-                                <span class="text-black-50">$@category.Products.FirstOrDefault()?.Price</span>
+                                <span class="text-black-50">$@Model.FirstOrDefault().Price</span>
                             </div>
                         </div>
                     </div>
